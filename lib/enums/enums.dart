@@ -14,16 +14,17 @@ class _EnumsState extends State<Enums> {
   @override
   Widget build(BuildContext context) {
     final themeColors = Theme.of(context).colorScheme;
+    MyOrder order = MyOrder.orther;
     return Scaffold(
       backgroundColor: themeColors.background,
       appBar: AppBar(
         elevation: 0,
-        title: const Column(
+        title: Column(
           children: [
-            Text('Order tracking'),
+            const Text('Order tracking'),
             Text(
-              '#ORDER123',
-              style: TextStyle(
+              '#${order.orderId}',
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
               ),
@@ -45,7 +46,7 @@ class _EnumsState extends State<Enums> {
             subtitle: OrderStatusEnum.processing.description,
             icon: OrderStatusEnum.processing.icon,
             showLine: true,
-            isActive: true,
+            isActive: order.status == OrderStatusEnum.processing,
           ),
           OrderStatusItemView(
             color: OrderStatusEnum.inTransit.color,
@@ -53,7 +54,7 @@ class _EnumsState extends State<Enums> {
             subtitle: OrderStatusEnum.inTransit.description,
             icon: OrderStatusEnum.inTransit.icon,
             showLine: true,
-            isActive: true,
+            isActive: order.status == OrderStatusEnum.inTransit,
           ),
           OrderStatusItemView(
             color: OrderStatusEnum.delivered.color,
@@ -61,11 +62,29 @@ class _EnumsState extends State<Enums> {
             subtitle: OrderStatusEnum.delivered.description,
             icon: OrderStatusEnum.delivered.icon,
             showLine: false,
-            isActive: false,
+            isActive: order.status == OrderStatusEnum.delivered,
           ),
         ],
       ),
     );
+  }
+}
+
+class MyOrder {
+  final String orderId;
+  final OrderStatusEnum status;
+
+  MyOrder(this.orderId, this.status);
+
+  static MyOrder get orther {
+    return MyOrder('ORDR123', OrderStatusEnum.processing);
+  }
+
+  MyOrder copyWith({
+    String? orderId,
+    OrderStatusEnum? status,
+  }) {
+    return MyOrder(orderId ?? this.orderId, status ?? this.status);
   }
 }
 
