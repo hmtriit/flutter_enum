@@ -4,12 +4,12 @@ import 'package:flutter_enum/utils/utilities.dart';
 class OrderStatusItemView extends StatelessWidget {
   const OrderStatusItemView(
       {Key? key,
-        required this.color,
-        required this.title,
-        required this.subtitle,
-        required this.icon,
-        required this.showLine,
-        required this.isActive})
+      required this.color,
+      required this.title,
+      required this.subtitle,
+      required this.icon,
+      required this.showLine,
+      required this.isActive})
       : super(key: key);
   final Color color;
   final String title;
